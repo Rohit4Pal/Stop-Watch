@@ -5,6 +5,7 @@ let hour = 0;
 let stopWatch;
 let isPause = false;
 let isReset = false;
+let isStarted = false;
 document.getElementById("start").addEventListener("click", handleClick);
 document.getElementById("pause").addEventListener("click", pause);
 document.getElementById("resume").addEventListener("click", Resume);
@@ -37,9 +38,10 @@ function watch() {
   //console.log(`${sec} ${min} ${hour}`);
 }
 function handleClick() {
-
-  isReset=false;
-  isPause=false;
+  if (isStarted) return;
+  isReset = false;
+  isPause = false;
+  isStarted = true;
   stopWatch = setInterval(watch, 100);
   stopWatch();
 }
@@ -48,6 +50,7 @@ function pause() {
 }
 function Resume() {
   isPause = false;
+  isStarted = false;
   handleClick();
 }
 function Reset() {
@@ -55,6 +58,7 @@ function Reset() {
   min = 0;
   hour = 0;
   isReset = true;
+  isStarted = false;
 
   secText.innerText = "00";
   minText.innerText = "00";
